@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AutoFarmMaker</title>
+  <link rel="stylesheet" href="CopyPage.css">
+</head>
+<body>
+  <h3 class="title"></h3>
+  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <div class="script-place"><span class="description"></span></div>
+  <script>
+    let TextScript = `-- READ THISSSSSS👇
+-- !! WAIT FOR THE GAME TO LOAD BEFORE USE TO PREVENT TC TRIGGER RESIZE ERROR !!
+local Players = game:GetService("Players")
+
+local success, TC = pcall(function()
+	return workspace:WaitForChild("BoatStages", 5)
+		:WaitForChild("NormalStages", 5)
+		:WaitForChild("TheEnd", 5)
+		:WaitForChild("GoldenChest", 5)
+		:WaitForChild("Trigger", 5)
+end)
+
+if success and TC and TC:IsA("BasePart") then
+	TC.Size = Vector3.new(2048, 2048, 2048)
+	print("Drox: Success!!")
+else
+	warn("Drox: Error!")
+end
+
+for i = 1, 5 do
+	local path = Instance.new("Part")
+	path.Size = Vector3.new(150, 1, 2048)
+	path.Position = Vector3.new(-61.659915924072266, 48.61494445800781, 1700 + (i - 0.5) * 2048)
+	path.CanCollide = true
+	path.Anchored = true
+	path.AssemblyLinearVelocity = Vector3.new(0, 0, 199)
+	path.Parent = workspace
+end
+
+local SpawnPart = Instance.new("Part")
+SpawnPart.Size = Vector3.new(2048, 1, 2048)
+SpawnPart.Position = Vector3.new(-61.659915924072266, -10, 150)
+SpawnPart.Anchored = true
+SpawnPart.CanCollide = false
+SpawnPart.CanTouch = true
+SpawnPart.Parent = workspace
+
+local SpawnPos = Vector3.new(-61.659915924072266, 49.61494445800781, 691.8390502929688) 
+local de = {}
+
+SpawnPart.Touched:Connect(function(hit)
+	local character = hit:FindFirstAncestorOfClass("Model")
+	if not character then return end
+
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid or humanoid.Health <= 0 then return end -- Ignore dead characters
+
+	local player = Players:GetPlayerFromCharacter(character)
+
+	if player and not de[player] then
+		de[player] = true
+		
+		pcall(function()
+			character:PivotTo(CFrame.new(SpawnPos + Vector3.new(0, 3, 0)))
+		end)
+		
+		task.wait(0.5)
+		de[player] = nil
+	end
+end)`;
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(TextScript);
+    }
+
+    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+  </script>
+</body>
+</html>
