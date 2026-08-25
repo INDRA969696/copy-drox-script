@@ -43,7 +43,7 @@ PRD.TextSize = 4
 PRD.TextScaled = true
 PRD.Size = UDim2.new(1, 0, 0.12, 0)
 PRD.Position = UDim2.new(0, 0, 0.12, 0)
-PRD.Text = "PATH RELOAD DEBUGGER : \n"
+PRD.Text = "PATH RELOAD DEBUGGER : \\n"
 PRD.TextColor3 = Color3.fromHex("FFFFFF")
 PRD.BackgroundColor3 = Color3.fromHex("5F5F5F")
 PRD.TextWrapped = true
@@ -255,7 +255,7 @@ end
 task.spawn(function()
 	while task.wait(0.1) do
 		if selectedObject then
-			PRD.Text = "PATH RELOAD DEBUGGER : \n" .. PH.Text .. "." .. CP.Text  .. " = " .. NV.Text
+			PRD.Text = "PATH RELOAD DEBUGGER : \\n" .. PH.Text .. "." .. CP.Text  .. " = " .. NV.Text
 			
 			local LC = {}
 		  if selectedObject.Parent then
@@ -264,9 +264,9 @@ task.spawn(function()
 			  end
 		  end
 		  
-		  childText = table.concat(LC, "\n")
+		  childText = table.concat(LC, "\\n")
 		  
-		  TL.Text = "objectClick : " .. selectedObject.Name .. "\nFullPath : " .. selectedObject:GetFullName() .. "\nParent : " .. tostring(selectedObject.Parent) .. "\nAllChildParent : \n" .. childText
+		  TL.Text = "objectClick : " .. selectedObject.Name .. "\\nFullPath : " .. selectedObject:GetFullName() .. "\\nParent : " .. tostring(selectedObject.Parent) .. "\\nAllChildParent : \\n" .. childText
 		end
 	end
 end)`;
