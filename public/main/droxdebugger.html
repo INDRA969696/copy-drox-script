@@ -7,17 +7,276 @@
   <link rel="stylesheet" href="/main/css/z999.css">
 </head>
 <body>
-  <h3 class="title"></h3>
-  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <h3 class="subtitle">for user</h3>
+  <button id="clipuser" class="clipboard">Copy Here</button>
+  <h3 class="subtitle">for learn</h3>
+  <button id="cliplearn" class="clipboard">Copy Here</button>
   <div class="script-place"><span class="description"></span></div>
   <script>
-    let TextScript = ``;
+    let TextUser = `local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
-    function copyToClipboard() {
-      navigator.clipboard.writeText(TextScript);
+if player:WaitForChild("Backpack"):FindFirstChild("DEBUGGER") then player.Backpack.DEBUGGER:Destroy() end
+if player.Character:FindFirstChild("DEBUGGER") then player.Character.DEBUGGER:Destroy() end
+
+local SelectTool = Instance.new("Tool")
+SelectTool.Name = "DEBUGGER"
+SelectTool.RequiresHandle = false
+SelectTool.Parent = player:WaitForChild("Backpack")
+
+local CG = game:GetService("CoreGui")
+if CG:FindFirstChild("Dro") then CG.Dro:Destroy() end
+
+local SG = Instance.new("ScreenGui", CG)
+SG.Name = "Dro"
+
+local FrameDebug = Instance.new("Frame", SG)
+FrameDebug.Active = false
+FrameDebug.Visible = false
+FrameDebug.Size = UDim2.new(0.3, 0, 0.6, 0)
+FrameDebug.Position = UDim2.new(0.005, 0, 0, 0)
+FrameDebug.BackgroundTransparency = 1
+FrameDebug.BackgroundColor3 = Color3.fromRGB(12, 15, 10)
+
+local PRD = Instance.new("TextLabel", FrameDebug)
+PRD.TextSize = 4
+PRD.TextScaled = true
+PRD.Size = UDim2.new(1, 0, 0.12, 0)
+PRD.Position = UDim2.new(0, 0, 0.12, 0)
+PRD.Text = "PATH RELOAD DEBUGGER : \n"
+PRD.TextColor3 = Color3.fromHex("FFFFFF")
+PRD.BackgroundColor3 = Color3.fromHex("5F5F5F")
+PRD.TextWrapped = true
+PRD.TextXAlignment = Enum.TextXAlignment.Left
+PRD.TextYAlignment = Enum.TextYAlignment.Top
+-- Button Config
+
+-- Debugger Edit
+local PH = Instance.new("TextLabel", FrameDebug)
+PH.TextSize = 4
+PH.TextScaled = true
+PH.Size = UDim2.new(0.6, 0, 0.06, 0)
+PH.Position = UDim2.new(0, 0, 0, 0)
+PH.Text = "GetFullName()"
+PH.BackgroundColor3 = Color3.fromHex("5F5F5F")
+PH.TextWrapped = true
+PH.TextXAlignment = Enum.TextXAlignment.Left
+PH.TextYAlignment = Enum.TextYAlignment.Center
+
+local MP = Instance.new("TextBox", FrameDebug)
+MP.TextSize = 6
+MP.TextScaled = true
+MP.Size = UDim2.new(0.4, 0, 0.06, 0)
+MP.Position = UDim2.new(0.6, 0, 0, 0)
+MP.BackgroundColor3 = Color3.fromHex("FFFFFF")
+MP.Text = ""
+MP.PlaceholderText = "New Path"
+MP.TextWrapped = true
+MP.MultiLine = false
+MP.ClearTextOnFocus = true
+MP.TextXAlignment = Enum.TextXAlignment.Left
+MP.TextYAlignment = Enum.TextYAlignment.Center
+
+local CP = Instance.new("TextBox", FrameDebug)
+CP.TextSize = 6
+CP.TextScaled = true
+CP.Size = UDim2.new(0.6, 0, 0.06, 0)
+CP.Position = UDim2.new(0, 0, 0.06, 0)
+CP.BackgroundColor3 = Color3.fromHex("FFFFFF")
+CP.Text = ""
+CP.PlaceholderText = "Property"
+CP.TextWrapped = true
+CP.MultiLine = false
+CP.ClearTextOnFocus = true
+CP.TextXAlignment = Enum.TextXAlignment.Left
+CP.TextYAlignment = Enum.TextYAlignment.Center
+
+local NV = Instance.new("TextBox", FrameDebug)
+NV.TextSize = 6
+NV.TextScaled = true
+NV.Size = UDim2.new(0.4, 0, 0.06, 0)
+NV.Position = UDim2.new(0.6, 0, 0.06, 0)
+NV.BackgroundColor3 = Color3.fromHex("FFFFFF")
+NV.Text = ""
+NV.PlaceholderText = "value"
+NV.TextWrapped = true
+NV.MultiLine = false
+NV.ClearTextOnFocus = true
+NV.TextXAlignment = Enum.TextXAlignment.Left
+NV.TextYAlignment = Enum.TextYAlignment.Center
+
+-- DEBUGGER LOGS
+local FRL = Instance.new("Frame", SG)
+FRL.Active = false
+FRL.Size = UDim2.new(0.45, 0, 0.4, 0)
+FRL.Position = UDim2.new(0.55, 0, -0.1, 0)
+FRL.BackgroundTransparency = 1
+
+local TL = Instance.new("TextLabel", FRL)
+TL.TextColor3 = Color3.fromRGB(255, 255, 255)
+TL.Active = false
+TL.TextSize = 6
+TL.TextScaled = true
+TL.Size = UDim2.new(0, 0, 0, 0)
+TL.Position = UDim2.new(0, 0, 0, 0)
+TL.BackgroundTransparency = 1
+TL.TextXAlignment = Enum.TextXAlignment.Left
+TL.TextYAlignment = Enum.TextYAlignment.Top
+TL.TextScaled = false
+TL.TextWrapped = false
+
+local mouse = player:GetMouse()
+
+local SetMode = 1
+
+local SH = Instance.new("Highlight", CG)
+SH.FillColor = Color3.fromRGB(255, 5, 5)
+SH.OutlineColor = Color3.fromRGB(255, 0, 0)
+SH.FillTransparency = 0.8
+
+local childText = nil
+
+local selectedObject = nil
+SelectTool.Equipped:Connect(function()
+  FrameDebug.Visible = true
+end)
+
+SelectTool.Unequipped:Connect(function()
+  FrameDebug.Visible = false
+end)
+
+SelectTool.Activated:Connect(function()
+	local target = mouse.Target
+  if SetMode == 1 then
+    
+  elseif SetMode == 2 then
+	  if target then
+		  selectedObject = target 
+		  SH.Adornee = selectedObject
+		  PH.Text = selectedObject:GetFullName()
+		  
+	  end
+	end
+end)
+-- button Config
+
+-- MODE
+local Mode = Instance.new("TextButton", FrameDebug)
+Mode.TextSize = 4
+Mode.TextScaled = true
+Mode.Size = UDim2.new(0.33333333333333333, 0, 0.08, 0)
+Mode.Position = UDim2.new(0.666666666666, 0, 0.24, 0)
+Mode.Text = "none"
+Mode.TextColor3 = Color3.fromHex("FFFFFF")
+Mode.BackgroundColor3 = Color3.fromHex("5F5F5F")
+Mode.TextWrapped = true
+Mode.TextXAlignment = Enum.TextXAlignment.Center
+Mode.TextYAlignment = Enum.TextYAlignment.Center
+Mode.MouseButton1Click:Connect(function()
+  if SetMode == 1 then
+    Mode.Text = "Select Tool"
+    SetMode = 2
+  elseif SetMode == 2 then
+    Mode.Text = "None"
+    SetMode = 1
+  end
+end)
+
+local CopyText = Instance.new("TextButton", FrameDebug)
+CopyText.TextSize = 4
+CopyText.TextScaled = true
+CopyText.Size = UDim2.new(0.33333333333333333, 0, 0.08, 0)
+CopyText.Position = UDim2.new(0, 0, 0.24 , 0)
+CopyText.Text = "Copy Path"
+CopyText.TextColor3 = Color3.fromHex("FFFFFF")
+CopyText.BackgroundColor3 = Color3.fromHex("5F5F5F")
+CopyText.TextWrapped = true
+CopyText.TextXAlignment = Enum.TextXAlignment.Center
+CopyText.TextYAlignment = Enum.TextYAlignment.Center
+CopyText.MouseButton1Click:Connect(function()
+  setclipboard(PH.Text)
+end)
+
+local bapa = Instance.new("TextButton", FrameDebug)
+bapa.TextSize = 4
+bapa.TextScaled = true
+bapa.Size = UDim2.new(0.33333333333333333, 0, 0.08, 0)
+bapa.Position = UDim2.new(0.33333333333333333, 0, 0.24, 0)
+bapa.Text = "PARENT"
+bapa.TextColor3 = Color3.fromHex("FFFFFF")
+bapa.BackgroundColor3 = Color3.fromHex("5F5F5F")
+bapa.TextWrapped = true
+bapa.TextXAlignment = Enum.TextXAlignment.Center
+bapa.TextYAlignment = Enum.TextYAlignment.Center
+
+bapa.MouseButton1Click:Connect(function()
+	if selectedObject and selectedObject.Parent then
+		selectedObject = selectedObject.Parent
+		PH.Text = selectedObject:GetFullName()
+	end
+end)
+-- AUTO RUN (WITHOUT LOOP)
+MP.FocusLost:Connect(function(Lost)
+	if Lost and selectedObject then
+		if MP.Text ~= "" and MP.Text ~= "Self" then
+			local child = selectedObject:FindFirstChild(MP.Text)
+			if child then
+				selectedObject = child
+				PH.Text = selectedObject:GetFullName()
+				MP.Text = ""
+			end
+		end
+	end
+end)
+
+NV.FocusLost:Connect(function(Lost)
+	if Lost and selectedObject and CP.Text ~= "" and NV.Text ~= "" then
+		pcall(function()
+			selectedObject[CP.Text] = NV.Text
+		end)
+		CP.Text, NV.Text = "", ""
+	end
+end)
+
+local six = {MP, CP, NV, TL}
+local four = {PRD, PH, Mode, CopyText, bapa}
+for _, i in ipairs(six) do
+  local s = Instance.new("UITextSizeConstraint")
+  s.MinTextSize = 6
+  s.MaxTextSize = 8
+  s.Parent = i
+end
+for _, i in ipairs(four) do
+  local f = Instance.new("UITextSizeConstraint")
+  f.MinTextSize = 4
+  f.MaxTextSize = 6
+  f.Parent = i
+end
+task.spawn(function()
+	while task.wait(0.1) do
+		if selectedObject then
+			PRD.Text = "PATH RELOAD DEBUGGER : \n" .. PH.Text .. "." .. CP.Text  .. " = " .. NV.Text
+			
+			local LC = {}
+		  if selectedObject.Parent then
+			  for _, child in ipairs(selectedObject:GetChildren()) do
+				  table.insert(LC, child.Name .. " (" .. child.ClassName .. ")")
+			  end
+		  end
+		  
+		  childText = table.concat(LC, "\n")
+		  
+		  TL.Text = "objectClick : " .. selectedObject.Name .. "\nFullPath : " .. selectedObject:GetFullName() .. "\nParent : " .. tostring(selectedObject.Parent) .. "\nAllChildParent : \n" .. childText
+		end
+	end
+end)`;
+    let TextLearn = `wait i make it`;
+
+    function copyToUser() {
+      navigator.clipboard.writeText(TextUser);
     }
 
-    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+    document.getElementById('clipuser').addEventListener('click', () => copyToUser());
   </script>
 </body>
 </html>
