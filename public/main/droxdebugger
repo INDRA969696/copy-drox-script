@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFarmMaker</title>
+  <link rel="stylesheet" href="/main/css/z999.css">
+</head>
+<body>
+  <h3 class="title"></h3>
+  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <div class="script-place"><span class="description"></span></div>
+  <script>
+    let TextScript = ``;
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(TextScript);
+    }
+
+    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+  </script>
+</body>
+</html>
