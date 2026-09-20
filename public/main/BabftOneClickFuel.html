@@ -11,7 +11,55 @@
   <button id="clipboardbtn" class="clipboard">Copy Here</button>
   <div class="script-place"><span class="description"></span></div>
   <script>
-    let TextScript = ``;
+    let TextScript = `-- DraLibs (Open Source Library) : https://github.com/INDRA969696/DrScriptHub
+local dralibs = loadstring(game:HttpGet("https://raw.githubusercontent.com/INDRA969696/DrScriptHub/main/DraLibrary/DraLibs"))()
+local Hub = dralibs:window("One Click Inf Fuel")
+
+local Players = game:GetService("Players")
+local Usn = Players.LocalPlayer.Name
+
+Hub:button("Thruster", function()
+  local folder = workspace.Blocks:FindFirstChild(Usn)
+  if folder then
+    for _, a in ipairs(folder:GetChildren()) do
+      if a.Name == "Thruster" and a:IsA("Model") then
+        local fuel = a:FindFirstChild("Fuel")
+        if fuel then
+          fuel.Value = 999999999999999999999999999999999
+        end
+      end
+    end
+  end
+end)
+
+Hub:button("UltraThruster", function()
+  local folder = workspace.Blocks:FindFirstChild(Usn)
+  if folder then
+    for _, a in ipairs(folder:GetChildren()) do
+      if a.Name == "UltraThruster" and a:IsA("Model") then
+        local fuel = a:FindFirstChild("Fuel")
+        if fuel then
+          fuel.Value = 999999999999999999999999999999999
+        end
+      end
+    end
+  end
+end)
+
+Hub:button("Jet Turbine", function()
+  local folder = workspace.Blocks:FindFirstChild(Usn)
+  if folder then
+    for _, a in ipairs(folder:GetChildren()) do
+      if a.Name == "JetTurbine" and a:IsA("Model") then
+        local fuel = a:FindFirstChild("Fuel")
+        if fuel then
+          fuel.Value = 999999999999999999999999999999999
+        end
+      end
+    end
+  end
+
+end)`;
 
     function copyToClipboard() {
       navigator.clipboard.writeText(TextScript);
