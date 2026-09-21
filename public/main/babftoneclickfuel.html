@@ -7,11 +7,15 @@
   <link rel="stylesheet" href="/main/css/z999.css">
 </head>
 <body>
-  <h3 class="title"></h3>
-  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <h3 class="title">V1- 3 button</h3>
+  <button id="V1clipboardbtn" class="clipboard">Copy Here</button>
   <div class="script-place"><span class="description"></span></div>
+  <h3 class="title">V2- 2 button</h3>
+  <button id="V2clipboardbtn" class="clipboard">Copy Here</button>
+  <div class="script-place"><span class="description"></span></div>
+  
   <script>
-    let TextScript = `-- DraLibs (Open Source Library) : https://github.com/INDRA969696/DrScriptHub
+    let TextScript1 = `-- DraLibs (Open Source Library) : https://github.com/INDRA969696/DrScriptHub
 local dralibs = loadstring(game:HttpGet("https://raw.githubusercontent.com/INDRA969696/DrScriptHub/main/DraLibrary/DraLibs"))()
 local Hub = dralibs:window("One Click Inf Fuel")
 
@@ -60,12 +64,51 @@ Hub:button("Jet Turbine", function()
   end
 
 end)`;
+    TextScript2 = `-- DraLibs (Open Source Library) : https://github.com/INDRA969696/DrScriptHub
+local dralibs = loadstring(game:HttpGet("https://raw.githubusercontent.com/INDRA969696/DrScriptHub/main/DraLibrary/DraLibs"))()
+local Hub = dralibs:window("One Click Inf Fuel")
 
-    function copyToClipboard() {
-      navigator.clipboard.writeText(TextScript);
+local Players = game:GetService("Players")
+local Usn = Players.LocalPlayer.Name
+
+Hub:button("Thruster & Ultra", function()
+  local folder = workspace.Blocks:FindFirstChild(Usn)
+  if folder then
+    for _, a in ipairs(folder:GetChildren()) do
+      if a.Name == "Thruster" or "UltraThruster" and a:IsA("Model") then
+        local fuel = a:FindFirstChild("Fuel")
+        if fuel then
+          fuel.Value = 999999999999999999999999999999999
+        end
+      end
+    end
+  end
+end)
+
+Hub:button("Jet Turbine", function()
+  local folder = workspace.Blocks:FindFirstChild(Usn)
+  if folder then
+    for _, a in ipairs(folder:GetChildren()) do
+      if a.Name == "JetTurbine" and a:IsA("Model") then
+        local fuel = a:FindFirstChild("Fuel")
+        if fuel then
+          fuel.Value = 999999999999999999999999999999999
+        end
+      end
+    end
+  end
+
+end)`;
+
+    function copyV1ToClipboard() {
+      navigator.clipboard.writeText(TextScript1);
+    }
+    function copyV2ToClipboard() {
+      navigator.clipboard.writeText(TextScript2);
     }
 
-    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+    document.getElementById('V1clipboardbtn').addEventListener('click', () => copyV1ToClipboard());
+    document.getElementById('V2clipboardbtn').addeventlIstener('click', () => copyV2ToClipboard());
   </script>
 </body>
 </html>
