@@ -14,6 +14,8 @@
     let TextScript = `local player = game.Players.LocalPlayer
 local pg = player:WaitForChild("PlayerGui")
 
+if pg:FindFirstChild("SimpleLoader") then pg.SimpleLoader:Destroy() end
+
 local sg = Instance.new("ScreenGui")
 sg.Name = "SimpleLoader"
 sg.Parent = pg
