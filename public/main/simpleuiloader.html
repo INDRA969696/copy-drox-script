@@ -24,16 +24,16 @@ MainFrame.Position = UDim2.new(0.4, 0, 0.1, 0)
 MainFrame.Parent = sg
 
 local tb = Instance.new("TextBox", MainFrame)
-tb.Size = UDim2.new(0.7, 0, 1, 0)
-tb.Position = UDim2.new(0.1, 0, 0, 0)
+tb.Size = UDim2.new(0.75, 0, 1, 0)
+tb.Position = UDim2.new(0, 0, 0, 0)
 tb.Text = ""
 tb.PlaceholderText = "paste script here.."
 tb.TextXAlignment = Enum.TextXAlignment.Left
 tb.TextWrapped = true
 
 local eb = Instance.new("TextButton", MainFrame)
-eb.Size = UDim2.new(0.2, 0, 1, 0)
-eb.Position = UDim2.new(0.8, 0, 0, 0)
+eb.Size = UDim2.new(0.25, 0, 1, 0)
+eb.Position = UDim2.new(0.75, 0, 0, 0)
 eb.Text = "exe"
 eb.MouseButton1Click:Connect(function() loadstring(tb.Text)() end)
 `;
