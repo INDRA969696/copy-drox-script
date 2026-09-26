@@ -32,7 +32,7 @@ tb.TextXAlignment = Enum.TextXAlignment.Left
 tb.TextWrapped = true
 
 local eb = Instance.new("TextButton", MainFrame)
-eb.size = UDim2.new(0.2, 0, 1, 0)
+eb.Size = UDim2.new(0.2, 0, 1, 0)
 eb.Position = UDim2.new(0.8, 0, 0, 0)
 eb.Text = "exe"
 eb.MouseButton1Click:Connect(function() loadstring(tb.Text)() end)
