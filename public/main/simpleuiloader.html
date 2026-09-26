@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFarmMaker</title>
+  <link rel="stylesheet" href="/main/css/z999.css">
+</head>
+<body>
+  <h3 class="title"></h3>
+  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <div class="script-place"><span class="description"></span></div>
+  <script>
+    let TextScript = `local players = game.Players.LocalPlayer
+local pg = players:WaitForChild("PlayerGui")
+
+local sg = Instance.new("ScreenGui")
+sg.Name = "SimpleLoader"
+sg.Parent = pg
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0.35, 0, 0.1, 0)
+MainFrame.Position = UDim2.new(0.4, 0, 0.1, 0)
+MainFrame.Parent = sg
+
+local tb = Instance.new("TextBox", MainFrame)
+tb.Size = UDim2.new(0.7, 0, 1, 0)
+tb.Position = UDim2.new(0.1, 0, 0, 0)
+tb.Text = ""
+tb.PlaceholderText = "paste script here.."
+tb.TextXAlignment = Enum.TextXAlignment.Left
+tb.TextWrapped = true
+
+local eb = Instance.new("TextButton", MainFrame)
+eb.size = UDim2.new(0.2, 0, 1, 0)
+eb.Position = UDim2.new(0.8, 0, 0, 0)
+eb.Text = "exe"
+eb.MouseButton1Click:Connect(function() loadstring(tb.Text)() end)
+`;
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(TextScript);
+    }
+
+    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+  </script>
+</body>
+</html>
