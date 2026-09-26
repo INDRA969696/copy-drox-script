@@ -11,8 +11,8 @@
   <button id="clipboardbtn" class="clipboard">Copy Here</button>
   <div class="script-place"><span class="description"></span></div>
   <script>
-    let TextScript = `local players = game.Players.LocalPlayer
-local pg = players:WaitForChild("PlayerGui")
+    let TextScript = `local player = game.Players.LocalPlayer
+local pg = player:WaitForChild("PlayerGui")
 
 local sg = Instance.new("ScreenGui")
 sg.Name = "SimpleLoader"
