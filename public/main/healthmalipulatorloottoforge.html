@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFarmMaker</title>
+  <link rel="stylesheet" href="/main/css/z999.css">
+</head>
+<body>
+  <h3 class="title"></h3>
+  <button id="clipboardbtn" class="clipboard">Copy Here</button>
+  <div class="script-place"><span class="description"></span></div>
+  <script>
+    let TextScript = `-- Health Manipulator
+local dralibs = loadstring(game:HttpGet("https://raw.githubusercontent.com/INDRA969696/DrScriptHub/main/DraLibrary/DraLibs"))()
+local Hub = dralibs:window("Health Manipulator")
+
+local PlayerHealth = game:GetService("Players").LocalPlayer
+local setHealth = nill
+Hub:button("Inf Health", function()
+  if PlayerHealth:WaitForChild("HPValue") then 
+    PlayerHealth.HPValue.Value = math.huge
+    PlayerHealth.HPValue:SetAttribute("MaxHP", math.huge)
+  end
+end)
+Hub:textbox("set health you want", function(setNumber) 
+  if tonumber(setNumber) ~= nil then setHealth = setNumber warn("success") return setHealth 
+  else warn("Falied Get Value!") end
+end)
+Hub:button("Set Health", function()
+  if PlayerHealth:WaitForChild("HPValue") then 
+    PlayerHealth.HPValue.Value = setHealth
+    PlayerHealth.HPValue:SetAttribute("MaxHP", setHealth)
+  end
+end)`;
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(TextScript);
+    }
+
+    document.getElementById('clipboardbtn').addEventListener('click', () => copyToClipboard());
+  </script>
+</body>
+</html>
