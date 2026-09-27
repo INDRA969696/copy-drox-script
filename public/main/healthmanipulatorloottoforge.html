@@ -16,7 +16,7 @@ local dralibs = loadstring(game:HttpGet("https://raw.githubusercontent.com/INDRA
 local Hub = dralibs:window("Health Manipulator")
 
 local PlayerHealth = game:GetService("Players").LocalPlayer
-local setHealth = nill
+local setHealth = nil
 Hub:button("Inf Health", function()
   if PlayerHealth:WaitForChild("HPValue") then 
     PlayerHealth.HPValue.Value = math.huge
